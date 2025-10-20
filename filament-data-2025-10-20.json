@@ -1,0 +1,644 @@
+{
+  "filaments": [
+    {
+      "id": 1,
+      "brand": "Bambu",
+      "type": "PLA Basic",
+      "color": "Beige",
+      "hexColor": "#fff2cc"
+    },
+    {
+      "id": 2,
+      "brand": "Bambu",
+      "type": "PLA Basic",
+      "color": "Black",
+      "hexColor": "#000000"
+    },
+    {
+      "id": 3,
+      "brand": "Bambu",
+      "type": "PLA Basic",
+      "color": "Gold",
+      "hexColor": "#f1c232"
+    },
+    {
+      "id": 4,
+      "brand": "Bambu",
+      "type": "PLA Basic",
+      "color": "Jade White",
+      "hexColor": "#ffffff"
+    },
+    {
+      "id": 5,
+      "brand": "Bambu",
+      "type": "PLA Basic",
+      "color": "Orange",
+      "hexColor": "#ff6d01"
+    },
+    {
+      "id": 6,
+      "brand": "Bambu",
+      "type": "PLA Basic",
+      "color": "Red",
+      "hexColor": "#ea4335"
+    },
+    {
+      "id": 7,
+      "brand": "Bambu",
+      "type": "PLA Matte",
+      "color": "Dark Brown",
+      "hexColor": "#a2642d"
+    },
+    {
+      "id": 8,
+      "brand": "Bambu",
+      "type": "PLA Matte",
+      "color": "Dark Green",
+      "hexColor": "#38761d"
+    },
+    {
+      "id": 9,
+      "brand": "Bambu",
+      "type": "PLA Matte",
+      "color": "Sakura Pink",
+      "hexColor": "#ead1dc"
+    },
+    {
+      "id": 10,
+      "brand": "Elegoo",
+      "type": "PLA Plus",
+      "color": "Dark Blue",
+      "hexColor": "#0000ff"
+    },
+    {
+      "id": 11,
+      "brand": "Elegoo",
+      "type": "PLA Plus",
+      "color": "Yellow",
+      "hexColor": "#ffff00"
+    },
+    {
+      "id": 12,
+      "brand": "eSun",
+      "type": "PLA Plus",
+      "color": "Orange",
+      "hexColor": "#ff6d01"
+    },
+    {
+      "id": 13,
+      "brand": "Overture",
+      "type": "PLA Matte",
+      "color": "Light Brown",
+      "hexColor": "#efcc88"
+    },
+    {
+      "id": 14,
+      "brand": "Elegoo",
+      "type": "PLA Matte",
+      "color": "White",
+      "hexColor": "#ffffff"
+    },
+    {
+      "id": 15,
+      "brand": "Elegoo",
+      "type": "PLA Matte",
+      "color": "Black",
+      "hexColor": "#000000"
+    },
+    {
+      "id": 16,
+      "brand": "ESun",
+      "type": "PLA Plus",
+      "color": "Light Blue",
+      "hexColor": "#00bfff"
+    },
+    {
+      "id": 17,
+      "brand": "eSun",
+      "type": "PLA Plus",
+      "color": "Grey",
+      "hexColor": "#999999"
+    },
+    {
+      "id": 18,
+      "brand": "eSun",
+      "type": "PLA High-Speed",
+      "color": "Fire Engine Red",
+      "hexColor": "#990000"
+    },
+    {
+      "id": 19,
+      "brand": "Elegoo",
+      "type": "PLA Silk",
+      "color": "Triple Blue/Purple/Black",
+      "hexColor": "#351c75"
+    },
+    {
+      "id": 20,
+      "brand": "eSun",
+      "type": "PLA High-Speed",
+      "color": "Silver",
+      "hexColor": "#efefef"
+    },
+    {
+      "id": 21,
+      "brand": "Bambu",
+      "type": "PLA Basic",
+      "color": "Bronze",
+      "hexColor": "#a99645"
+    },
+    {
+      "id": 22,
+      "brand": "Elegoo",
+      "type": "PLA Basic",
+      "color": "Light Gray",
+      "hexColor": "#cccccc"
+    },
+    {
+      "id": 23,
+      "brand": "Bambu",
+      "type": "PLA Basic",
+      "color": "Jade Green",
+      "hexColor": "#0bd441"
+    },
+    {
+      "id": 24,
+      "brand": "Elegoo",
+      "type": "PLA Basic",
+      "color": "Orange",
+      "hexColor": "#ff9900"
+    },
+    {
+      "id": 25,
+      "brand": "Elegoo",
+      "type": "PLA Basic",
+      "color": "Purple",
+      "hexColor": "#8e7cc3"
+    },
+    {
+      "id": 26,
+      "brand": "CC3D",
+      "type": "PLA Silk",
+      "color": "Dual Gold/Purple",
+      "hexColor": "#cccccc"
+    },
+    {
+      "id": 27,
+      "brand": "CC3D",
+      "type": "PLA Silk",
+      "color": "Dual Black/Red",
+      "hexColor": "#cccccc"
+    }
+  ],
+  "flushData": [
+    {
+      "sampleId": 7,
+      "fromId": 15,
+      "toId": 4,
+      "volume": 250,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 8,
+      "fromId": 4,
+      "toId": 15,
+      "volume": 70,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 9,
+      "fromId": 15,
+      "toId": 14,
+      "volume": 350,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 10,
+      "fromId": 14,
+      "toId": 15,
+      "volume": 60,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 11,
+      "fromId": 1,
+      "toId": 8,
+      "volume": 60,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 12,
+      "fromId": 8,
+      "toId": 1,
+      "volume": 250,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 13,
+      "fromId": 13,
+      "toId": 8,
+      "volume": 125,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 14,
+      "fromId": 8,
+      "toId": 13,
+      "volume": 175,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 15,
+      "fromId": 13,
+      "toId": 1,
+      "volume": 125,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 16,
+      "fromId": 1,
+      "toId": 13,
+      "volume": 70,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 17,
+      "fromId": 13,
+      "toId": 9,
+      "volume": 150,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 18,
+      "fromId": 9,
+      "toId": 13,
+      "volume": 75,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 23,
+      "fromId": 15,
+      "toId": 20,
+      "volume": 125,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 24,
+      "fromId": 20,
+      "toId": 15,
+      "volume": 70,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 19,
+      "fromId": 15,
+      "toId": 13,
+      "volume": 225,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 20,
+      "fromId": 13,
+      "toId": 15,
+      "volume": 70,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 31,
+      "fromId": 13,
+      "toId": 20,
+      "volume": 100,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 32,
+      "fromId": 20,
+      "toId": 13,
+      "volume": 70,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 25,
+      "fromId": 9,
+      "toId": 20,
+      "volume": 75,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 26,
+      "fromId": 20,
+      "toId": 9,
+      "volume": 85,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 29,
+      "fromId": 9,
+      "toId": 15,
+      "volume": 75,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 30,
+      "fromId": 15,
+      "toId": 9,
+      "volume": 175,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 27,
+      "fromId": 14,
+      "toId": 13,
+      "volume": 70,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 28,
+      "fromId": 13,
+      "toId": 14,
+      "volume": 150,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 29,
+      "fromId": 21,
+      "toId": 18,
+      "volume": 75,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 30,
+      "fromId": 18,
+      "toId": 21,
+      "volume": 225,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 31,
+      "fromId": 3,
+      "toId": 18,
+      "volume": 75,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 32,
+      "fromId": 18,
+      "toId": 3,
+      "volume": 300,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 33,
+      "fromId": 22,
+      "toId": 18,
+      "volume": 75,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 34,
+      "fromId": 18,
+      "toId": 22,
+      "volume": 280,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 35,
+      "fromId": 20,
+      "toId": 18,
+      "volume": 80,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 36,
+      "fromId": 18,
+      "toId": 20,
+      "volume": 275,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 37,
+      "fromId": 22,
+      "toId": 3,
+      "volume": 75,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 38,
+      "fromId": 3,
+      "toId": 22,
+      "volume": 85,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 39,
+      "fromId": 3,
+      "toId": 21,
+      "volume": 60,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 40,
+      "fromId": 21,
+      "toId": 3,
+      "volume": 75,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 41,
+      "fromId": 21,
+      "toId": 22,
+      "volume": 85,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 42,
+      "fromId": 22,
+      "toId": 21,
+      "volume": 75,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 43,
+      "fromId": 15,
+      "toId": 18,
+      "volume": 100,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 44,
+      "fromId": 18,
+      "toId": 15,
+      "volume": 75,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 45,
+      "fromId": 13,
+      "toId": 7,
+      "volume": 100,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 46,
+      "fromId": 7,
+      "toId": 13,
+      "volume": 150,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 47,
+      "fromId": 15,
+      "toId": 7,
+      "volume": 225,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 48,
+      "fromId": 7,
+      "toId": 15,
+      "volume": 125,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 49,
+      "fromId": 23,
+      "toId": 2,
+      "volume": 75,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 50,
+      "fromId": 2,
+      "toId": 23,
+      "volume": 200,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 51,
+      "fromId": 24,
+      "toId": 23,
+      "volume": 75,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 52,
+      "fromId": 23,
+      "toId": 24,
+      "volume": 100,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 53,
+      "fromId": 24,
+      "toId": 2,
+      "volume": 75,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 54,
+      "fromId": 2,
+      "toId": 24,
+      "volume": 200,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 55,
+      "fromId": 16,
+      "toId": 23,
+      "volume": 75,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 56,
+      "fromId": 23,
+      "toId": 16,
+      "volume": 250,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 57,
+      "fromId": 25,
+      "toId": 23,
+      "volume": 75,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 58,
+      "fromId": 23,
+      "toId": 25,
+      "volume": 200,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 59,
+      "fromId": 2,
+      "toId": 25,
+      "volume": 250,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 60,
+      "fromId": 25,
+      "toId": 2,
+      "volume": 75,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 61,
+      "fromId": 2,
+      "toId": 16,
+      "volume": 300,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 62,
+      "fromId": 16,
+      "toId": 2,
+      "volume": 75,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 63,
+      "fromId": 26,
+      "toId": 27,
+      "volume": 75,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 64,
+      "fromId": 27,
+      "toId": 26,
+      "volume": 75,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 65,
+      "fromId": 19,
+      "toId": 26,
+      "volume": 125,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 66,
+      "fromId": 26,
+      "toId": 19,
+      "volume": 75,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 67,
+      "fromId": 19,
+      "toId": 27,
+      "volume": 75,
+      "retraction": "Long (18mm)"
+    },
+    {
+      "sampleId": 68,
+      "fromId": 27,
+      "toId": 19,
+      "volume": 100,
+      "retraction": "Long (18mm)"
+    }
+  ],
+  "exportDate": "2025-10-20T04:51:37.109Z"
+}
