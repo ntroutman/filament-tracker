@@ -17,9 +17,25 @@ export const store = reactive({
   
   addFilament(brand, type, color, hexColor = '#000000') {
     const id = `${brand}-${type}-${color}`
-    this.filaments.push({ id, brand, type, color, hexColor })
+    this.filaments.push({ id, brand, type, color, hexColor, purchases: [] })
     saveToStorage()
     return id
+  },
+  
+  addPurchase(filamentId, date, rolls, price) {
+    const filament = this.getFilamentById(filamentId)
+    if (filament) {
+      const purchaseId = Date.now().toString()
+
+      // purchases were added after some data was already loaded, migrate in place
+      if (!filament.purchases) {
+        filament.purchases = []
+      }
+
+      filament.purchases.push({ id: purchaseId, date, rolls: Number(rolls), price: Number(price) })
+      saveToStorage()
+      return purchaseId
+    }
   },
   
   editFilament(id, brand, type, color, hexColor) {
@@ -219,7 +235,19 @@ export const store = reactive({
 const savedData = localStorage.getItem(STORAGE_KEY)
 if (savedData) {
   const { filaments, flushData, nextSampleId } = JSON.parse(savedData)
-  store.filaments.push(...(filaments || []))
+  
+  // Migrate filaments to add purchases array if missing
+  const migratedFilaments = (filaments || []).map(filament => ({
+    ...filament,
+    purchases: filament.purchases || []
+  }))
+  
+  store.filaments.push(...migratedFilaments)
   store.flushData.push(...(flushData || []))
   if (nextSampleId) store.nextSampleId = nextSampleId
+  
+  // Save migrated data back to localStorage
+  if (filaments && filaments.some(f => !f.purchases)) {
+    saveToStorage()
+  }
 }

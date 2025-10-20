@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- Add Filament Card -->
     <v-card class="mb-6">
       <v-card-title>Add New Filament</v-card-title>
       <v-card-text>
@@ -40,6 +41,7 @@
       </v-card-text>
     </v-card>
 
+    <!-- Filament List Table -->
     <v-data-table
         v-if="store.filaments.length"
         :headers="headers"
@@ -63,13 +65,15 @@
         </div>
       </template>
       
+      <template v-slot:item.rolls="{ item }">
+        <div>
+          {{ item.purchases.map(p => p.rolls).reduce((a, v) => a + v, 0) }}
+        </div>
+      </template>
+      
       <template v-slot:item.actions="{ item }">
-        <v-btn @click="openEditDialog(item)" icon size="small" variant="outlined" class="mr-2">
-          <v-icon>mdi-pencil</v-icon>
-        </v-btn>
-        <v-btn @click="confirmDelete(item)" icon size="small" variant="outlined" color="error">
-          <v-icon>mdi-delete</v-icon>
-        </v-btn>
+        <v-btn @click="openDetailsDialog(item)" icon="mdi-eye" size="xsmall" variant="plain" class="mr-2" />
+        <v-btn @click="confirmDelete(item)" icon="mdi-delete" size="xsmall" variant="plain" color="error" />
       </template>
     </v-data-table>
 
@@ -77,51 +81,94 @@
       No filaments added yet. Add your first filament above.
     </v-alert>
     
-    <!-- Edit Dialog -->
-    <v-dialog v-model="showEditDialog" max-width="500px">
+    <!-- Filament Details Dialog -->
+    <v-dialog v-model="showDetailsDialog" max-width="700px">
       <v-card>
-        <v-card-title>Edit Filament</v-card-title>
+        <v-card-title class="d-flex justify-space-between align-center">
+          <span>{{ detailsData.brand }} {{ detailsData.type }} - {{ detailsData.color }}</span>
+          <v-btn @click="toggleEditMode" icon variant="text">
+            <v-icon>{{ isEditMode ? 'mdi-eye' : 'mdi-pencil' }}</v-icon>
+          </v-btn>
+        </v-card-title>
+        
         <v-card-text>
-          <v-form @submit.prevent="saveEdit">
-            <v-row>
-              <v-col cols="12" md="6">
-                <v-text-field
-                  v-model="editData.brand"
-                  label="Brand"
-                  required
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12" md="6">
-                <v-text-field
-                  v-model="editData.type"
-                  label="Type"
-                  required
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="12" md="6">
-                <v-text-field
-                  v-model="editData.color"
-                  label="Color"
-                  required
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12" md="6">
-                <v-text-field
-                  v-model="editData.hexColor"
-                  label="Hex Color"
-                  type="color"
-                  required
-                ></v-text-field>
-              </v-col>
-            </v-row>
-          </v-form>
+          <!-- Filament Info Section -->
+          <v-row v-if="isEditMode">
+            <v-col cols="12" md="6">
+              <v-text-field v-model="detailsData.brand" label="Brand" required></v-text-field>
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-text-field v-model="detailsData.type" label="Type" required></v-text-field>
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-text-field v-model="detailsData.color" label="Color" required></v-text-field>
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-text-field v-model="detailsData.hexColor" label="Hex Color" type="color" required></v-text-field>
+            </v-col>
+          </v-row>
+          
+          <div v-else class="mb-4">
+            <div class="d-flex align-center gap-3 mb-2">
+              <div :style="{ backgroundColor: detailsData.hexColor, width: '30px', height: '30px', borderRadius: '4px', border: '1px solid #ccc' }"></div>
+              <div>
+                <div class="text-h6">{{ detailsData.brand }} {{ detailsData.type }}</div>
+                <div class="text-subtitle-1">{{ detailsData.color }}</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Purchases Section -->
+          <v-divider class="my-4"></v-divider>
+          <div class="d-flex justify-space-between align-center mb-3">
+            <h3>Purchase History</h3>
+            <v-btn @click="openPurchaseDialog" color="primary" size="small">
+              <v-icon left>mdi-plus</v-icon>
+              Add Purchase
+            </v-btn>
+          </div>
+          
+          <v-data-table
+            v-if="detailsData.purchases?.length"
+            :headers="purchaseHeaders"
+            :items="detailsData.purchases"
+            :items-per-page="5"
+            class="elevation-1"
+          >
+            <template v-slot:item.date="{ item }">
+              {{ new Date(item.date).toLocaleDateString() }}
+            </template>
+            <template v-slot:item.price="{ item }">
+              ${{ item.price.toFixed(2) }}
+            </template>
+          </v-data-table>
+          
+          <v-alert v-else type="info" variant="tonal" class="mt-2">
+            No purchases recorded yet.
+          </v-alert>
+          
+          <!-- Summary -->
+          <v-divider class="my-4"></v-divider>
+          <div class="d-flex justify-space-around text-center">
+            <div>
+              <div class="text-h6">{{ totalRolls }}</div>
+              <div class="text-caption">Total Rolls</div>
+            </div>
+            <div>
+              <div class="text-h6">${{ totalSpent.toFixed(2) }}</div>
+              <div class="text-caption">Total Spent</div>
+            </div>
+            <div>
+              <div class="text-h6">{{ detailsData.purchases?.length || 0 }}</div>
+              <div class="text-caption">Purchases</div>
+            </div>
+          </div>
         </v-card-text>
+        
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn @click="showEditDialog = false">Cancel</v-btn>
-          <v-btn @click="saveEdit" color="primary">Save</v-btn>
+          <v-btn @click="showDetailsDialog = false">Close</v-btn>
+          <v-btn v-if="isEditMode" @click="saveEdit" color="primary">Save Changes</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -143,6 +190,48 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    
+    <!-- Add Purchase Dialog -->
+    <v-dialog v-model="showPurchaseDialog" max-width="400px">
+      <v-card>
+        <v-card-title>Add Purchase</v-card-title>
+        <v-card-text>
+          <div class="mb-4">
+            <strong>{{ purchaseData.filament?.brand }} {{ purchaseData.filament?.type }} - {{ purchaseData.filament?.color }}</strong>
+          </div>
+          
+          <v-text-field
+            v-model="purchaseData.date"
+            type="date"
+            label="Purchase Date"
+            required
+            class="mb-4"
+          ></v-text-field>
+          
+          <v-text-field
+            v-model="purchaseData.rolls"
+            type="number"
+            min="1"
+            label="Number of Rolls"
+            required
+            class="mb-4"
+          ></v-text-field>
+          
+          <v-text-field
+            v-model="purchaseData.price"
+            type="number"
+            step="0.01"
+            label="Total Price"
+            required
+          ></v-text-field>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn @click="showPurchaseDialog = false">Cancel</v-btn>
+          <v-btn @click="savePurchase" color="primary">Save</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -155,14 +244,30 @@ const type = ref('')
 const color = ref('')
 const hexColor = ref('#000000')
 
-const showEditDialog = ref(false)
-const editData = ref({
+const showDetailsDialog = ref(false)
+const isEditMode = ref(false)
+const detailsData = ref({
   id: '',
   brand: '',
   type: '',
   color: '',
-  hexColor: '#000000'
+  hexColor: '#000000',
+  purchases: []
 })
+
+const purchaseHeaders = [
+  { title: 'Date', key: 'date' },
+  { title: 'Rolls', key: 'rolls' },
+  { title: 'Price', key: 'price' }
+]
+
+const totalRolls = computed(() => 
+  detailsData.value.purchases?.reduce((sum, p) => sum + p.rolls, 0) || 0
+)
+
+const totalSpent = computed(() => 
+  detailsData.value.purchases?.reduce((sum, p) => sum + p.price, 0) || 0
+)
 
 const showDeleteDialog = ref(false)
 const deleteData = ref({
@@ -170,10 +275,19 @@ const deleteData = ref({
   flushCount: 0
 })
 
+const showPurchaseDialog = ref(false)
+const purchaseData = ref({
+  filament: null,
+  date: new Date().toISOString().split('T')[0],
+  rolls: 1,
+  price: ''
+})
+
 const headers = [
   {title: 'Brand', key: 'brand'},
   {title: 'Type', key: 'type'},
   {title: 'Color', key: 'color', sortable: true},
+  {title: 'Rolls', key: 'rolls', sortable: false},
   {title: 'Actions', key: 'actions', sortable: false}
 ]
 
@@ -201,26 +315,43 @@ function addFilament() {
   hexColor.value = '#000000'
 }
 
-function openEditDialog(filament) {
-  editData.value = {
+function openDetailsDialog(filament) {
+  detailsData.value = {
     id: filament.id,
     brand: filament.brand,
     type: filament.type,
     color: filament.color,
-    hexColor: filament.hexColor
+    hexColor: filament.hexColor,
+    purchases: [...(filament.purchases || [])]
   }
-  showEditDialog.value = true
+  isEditMode.value = false
+  showDetailsDialog.value = true
+}
+
+function toggleEditMode() {
+  isEditMode.value = !isEditMode.value
 }
 
 function saveEdit() {
   store.editFilament(
-    editData.value.id,
-    editData.value.brand,
-    editData.value.type,
-    editData.value.color,
-    editData.value.hexColor
+    detailsData.value.id,
+    detailsData.value.brand,
+    detailsData.value.type,
+    detailsData.value.color,
+    detailsData.value.hexColor
   )
-  showEditDialog.value = false
+  isEditMode.value = false
+  // Refresh the dialog data
+  const updatedFilament = store.getFilamentById(detailsData.value.id)
+  if (updatedFilament) {
+    detailsData.value = {
+      ...detailsData.value,
+      brand: updatedFilament.brand,
+      type: updatedFilament.type,
+      color: updatedFilament.color,
+      hexColor: updatedFilament.hexColor
+    }
+  }
 }
 
 function confirmDelete(filament) {
@@ -236,4 +367,32 @@ function deleteFilament() {
   store.deleteFilament(deleteData.value.filament.id)
   showDeleteDialog.value = false
 }
+
+function openPurchaseDialog() {
+  const filament = store.getFilamentById(detailsData.value.id)
+  purchaseData.value = {
+    filament,
+    date: new Date().toISOString().split('T')[0],
+    rolls: 1,
+    price: ''
+  }
+  showPurchaseDialog.value = true
+}
+
+function savePurchase() {
+  store.addPurchase(
+    purchaseData.value.filament.id,
+    purchaseData.value.date,
+    purchaseData.value.rolls,
+    purchaseData.value.price
+  )
+
+  // Refresh the details dialog data
+  const updatedFilament = store.getFilamentById(detailsData.value.id)
+  if (updatedFilament) {
+    detailsData.value.purchases = [...updatedFilament.purchases]
+  }
+  showPurchaseDialog.value = false
+}
+
 </script>
