@@ -42,7 +42,7 @@
         <tbody>
           <tr v-for="fromFilament in selectedFilaments" :key="fromFilament.id">
             <td><strong>{{ fromFilament.brand }} {{ fromFilament.type }}<br>{{ fromFilament.color }}</strong></td>
-            <td v-for="toFilament in selectedFilaments" :key="toFilament.id">
+            <td v-for="toFilament in selectedFilaments" :key="toFilament.id" style="text-align: center;">
               <span v-if="getFlushVolumeValue(fromFilament.id, toFilament.id) !== null">
                 {{ getFlushVolumeValue(fromFilament.id, toFilament.id) }} ml
               </span>
@@ -50,10 +50,10 @@
                 v-else-if="fromFilament.id !== toFilament.id"
                 @click="openAddDialog(fromFilament, toFilament)"
                 icon
-                size="small"
+                size="x-small"
                 variant="outlined"
               >
-                <v-icon>mdi-plus</v-icon>
+                <v-icon icon="mdi-plus" size="small" />
               </v-btn>
               <span v-else>-</span>
             </td>
