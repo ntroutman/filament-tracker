@@ -163,10 +163,15 @@ export const store = reactive({
         }
         
         saveToStorage()
+        
+        // Show success message
+        alert(`Import successful!\n${this.filaments.length} filaments loaded\n${this.flushData.length} flush entries loaded`)
+      } else {
+        alert('Import failed: Invalid JSON format - missing filaments array')
       }
     } catch (error) {
       console.error('JSON import error:', error)
-      alert('Error importing JSON file. Please check the format.')
+      alert('Import failed: Invalid JSON file format')
     }
   },
   
