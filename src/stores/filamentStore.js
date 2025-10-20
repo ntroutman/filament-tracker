@@ -22,6 +22,17 @@ export const store = reactive({
     return id
   },
   
+  editFilament(id, brand, type, color, hexColor) {
+    const filament = this.getFilamentById(id)
+    if (filament) {
+      filament.brand = brand
+      filament.type = type
+      filament.color = color
+      filament.hexColor = hexColor
+      saveToStorage()
+    }
+  },
+  
   addFlushData(fromId, toId, volume, retraction = 'Long (18mm)') {
     const sampleId = this.nextSampleId++
     this.flushData.push({ sampleId, fromId, toId, volume: Number(volume), retraction })

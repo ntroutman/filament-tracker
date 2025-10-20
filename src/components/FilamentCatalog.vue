@@ -62,11 +62,66 @@
           <div>{{ item.color }}</div>
         </div>
       </template>
+      
+      <template v-slot:item.actions="{ item }">
+        <v-btn @click="openEditDialog(item)" icon size="small" variant="outlined">
+          <v-icon>mdi-pencil</v-icon>
+        </v-btn>
+      </template>
     </v-data-table>
 
     <v-alert v-else type="info" variant="tonal">
       No filaments added yet. Add your first filament above.
     </v-alert>
+    
+    <!-- Edit Dialog -->
+    <v-dialog v-model="showEditDialog" max-width="500px">
+      <v-card>
+        <v-card-title>Edit Filament</v-card-title>
+        <v-card-text>
+          <v-form @submit.prevent="saveEdit">
+            <v-row>
+              <v-col cols="12" md="6">
+                <v-text-field
+                  v-model="editData.brand"
+                  label="Brand"
+                  required
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field
+                  v-model="editData.type"
+                  label="Type"
+                  required
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" md="6">
+                <v-text-field
+                  v-model="editData.color"
+                  label="Color"
+                  required
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field
+                  v-model="editData.hexColor"
+                  label="Hex Color"
+                  type="color"
+                  required
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </v-form>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn @click="showEditDialog = false">Cancel</v-btn>
+          <v-btn @click="saveEdit" color="primary">Save</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -79,10 +134,20 @@ const type = ref('')
 const color = ref('')
 const hexColor = ref('#000000')
 
+const showEditDialog = ref(false)
+const editData = ref({
+  id: '',
+  brand: '',
+  type: '',
+  color: '',
+  hexColor: '#000000'
+})
+
 const headers = [
   {title: 'Brand', key: 'brand'},
   {title: 'Type', key: 'type'},
-  {title: 'Color', key: 'color', sortable: true}
+  {title: 'Color', key: 'color', sortable: true},
+  {title: 'Actions', key: 'actions', sortable: false}
 ]
 
 const filteredFilaments = computed(() => {
@@ -107,5 +172,27 @@ function addFilament() {
   store.addFilament(brand.value, type.value, color.value, hexColor.value)
   brand.value = type.value = color.value = ''
   hexColor.value = '#000000'
+}
+
+function openEditDialog(filament) {
+  editData.value = {
+    id: filament.id,
+    brand: filament.brand,
+    type: filament.type,
+    color: filament.color,
+    hexColor: filament.hexColor
+  }
+  showEditDialog.value = true
+}
+
+function saveEdit() {
+  store.editFilament(
+    editData.value.id,
+    editData.value.brand,
+    editData.value.type,
+    editData.value.color,
+    editData.value.hexColor
+  )
+  showEditDialog.value = false
 }
 </script>
