@@ -33,6 +33,13 @@ export const store = reactive({
     }
   },
   
+  deleteFilament(id) {
+    this.filaments = this.filaments.filter(f => f.id !== id)
+    // Also remove any flush data for this filament
+    this.flushData = this.flushData.filter(f => f.fromId !== id && f.toId !== id)
+    saveToStorage()
+  },
+  
   addFlushData(fromId, toId, volume, retraction = 'Long (18mm)') {
     const sampleId = this.nextSampleId++
     this.flushData.push({ sampleId, fromId, toId, volume: Number(volume), retraction })

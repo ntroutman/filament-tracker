@@ -64,8 +64,11 @@
       </template>
       
       <template v-slot:item.actions="{ item }">
-        <v-btn @click="openEditDialog(item)" icon size="small" variant="outlined">
+        <v-btn @click="openEditDialog(item)" icon size="small" variant="outlined" class="mr-2">
           <v-icon>mdi-pencil</v-icon>
+        </v-btn>
+        <v-btn @click="confirmDelete(item)" icon size="small" variant="outlined" color="error">
+          <v-icon>mdi-delete</v-icon>
         </v-btn>
       </template>
     </v-data-table>
@@ -122,6 +125,24 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    
+    <!-- Delete Confirmation Dialog -->
+    <v-dialog v-model="showDeleteDialog" max-width="400px">
+      <v-card>
+        <v-card-title>Confirm Delete</v-card-title>
+        <v-card-text>
+          <p>Delete "{{ deleteData.filament?.brand }} {{ deleteData.filament?.type }} - {{ deleteData.filament?.color }}"?</p>
+          <p v-if="deleteData.flushCount > 0" class="text-warning">
+            This will also delete {{ deleteData.flushCount }} flush data entries.
+          </p>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn @click="showDeleteDialog = false">Cancel</v-btn>
+          <v-btn @click="deleteFilament" color="error">Delete</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -141,6 +162,12 @@ const editData = ref({
   type: '',
   color: '',
   hexColor: '#000000'
+})
+
+const showDeleteDialog = ref(false)
+const deleteData = ref({
+  filament: null,
+  flushCount: 0
 })
 
 const headers = [
@@ -194,5 +221,19 @@ function saveEdit() {
     editData.value.hexColor
   )
   showEditDialog.value = false
+}
+
+function confirmDelete(filament) {
+  const flushCount = store.flushData.filter(f => f.fromId === filament.id || f.toId === filament.id).length
+  deleteData.value = {
+    filament,
+    flushCount
+  }
+  showDeleteDialog.value = true
+}
+
+function deleteFilament() {
+  store.deleteFilament(deleteData.value.filament.id)
+  showDeleteDialog.value = false
 }
 </script>
