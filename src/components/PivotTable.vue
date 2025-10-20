@@ -18,16 +18,13 @@
         >
           <template v-slot:item="{ props, item }">
             <v-list-item v-bind="props">
-              <FilamentSwatch :filament="item"/>
+              <FilamentSwatch :filament="item.value"/>
             </v-list-item>
           </template>
           
           <template v-slot:chip="{ props, item }">
             <v-chip v-bind="props">
-              <div
-                :style="{ backgroundColor: item.value.hexColor, width: '16px', height: '16px', borderRadius: '50%', border: '1px solid #ccc', marginRight: '6px' }"
-              ></div>
-               {{ item.value.brand }} {{ item.value.type }} - {{ item.value.color }}
+             <FilamentSwatch :filament="item.raw" single-line />
             </v-chip>
           </template>
         </v-combobox>
