@@ -3,21 +3,22 @@
     <h2>From/To Pivot Table</h2>
     
     <div v-if="store.filaments.length">
-      <h3>Select Filaments (order preserved):</h3>
+      <h3>Select Filaments:</h3>
       <div style="margin-bottom: 20px;">
         <v-combobox
           v-model="selectedFilaments"
           :items="store.filaments"
+          :custom-filter="filamentFilter"
+          :item-title="getFilamentDisplayName"
           label="Select filaments for pivot table"
           multiple
           chips
           closable-chips
           return-object
-          :item-title="() => ''"
           :item-value="item => item"
         >
           <template v-slot:item="{ props, item }">
-            <v-list-item v-bind="props">
+            <v-list-item v-bind="props" title="">
               <FilamentSwatch :filament="item.value"/>
             </v-list-item>
           </template>
@@ -129,6 +130,19 @@ const retractionOptions = [
 
 function getFilamentDisplayName(filament) {
   return `${filament.brand} ${filament.type} - ${filament.color}`
+}
+
+function filamentFilter(itemText, queryText, item) {
+  if (!queryText) return true
+  
+  const query = new RegExp(queryText.toLowerCase().split(" ").join(".*"), "gi")
+  const filament = item.raw || item
+  const name = filament.brand.toLowerCase() + " " + filament.type.toLowerCase() + " " + filament.color.toLowerCase()
+  return query.test(name)
+}
+
+function getFilamentSearchText(filament) {
+  return `${filament.brand} ${filament.type} ${filament.color}`
 }
 
 function getFlushVolumeValue(fromId, toId) {
