@@ -34,14 +34,16 @@
         <thead>
           <tr>
             <th>FROM \ TO</th>
-            <th v-for="toFilament in selectedFilaments" :key="toFilament.id">
-              {{ toFilament.brand }} {{ toFilament.type }}<br>{{ toFilament.color }}
+            <th v-for="toFilament in selectedFilaments" :key="toFilament.id" style="text-align: left; padding-left: 10px;">
+              <FilamentSwatch :filament="toFilament" />
             </th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="fromFilament in selectedFilaments" :key="fromFilament.id">
-            <td><strong>{{ fromFilament.brand }} {{ fromFilament.type }}<br>{{ fromFilament.color }}</strong></td>
+            <td>
+              <FilamentSwatch :filament="fromFilament" />
+            </td>
             <td v-for="toFilament in selectedFilaments" :key="toFilament.id" style="text-align: center;">
               <span v-if="getFlushVolumeValue(fromFilament.id, toFilament.id) !== null">
                 {{ getFlushVolumeValue(fromFilament.id, toFilament.id) }} ml
