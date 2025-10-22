@@ -7,25 +7,28 @@
         <v-form @submit.prevent="addFilament">
           <v-row>
             <v-col cols="12" md="3">
-              <v-text-field
+              <v-combobox
                   v-model="brand"
+                  :items="uniqueBrands"
                   label="Brand (e.g., Bambu, Elegoo)"
                   required
-              ></v-text-field>
+              ></v-combobox>
             </v-col>
             <v-col cols="12" md="3">
-              <v-text-field
+              <v-combobox
                   v-model="type"
+                  :items="uniqueTypes"
                   label="Type (e.g., PLA Basic, PETG)"
                   required
-              ></v-text-field>
+              ></v-combobox>
             </v-col>
             <v-col cols="12" md="3">
-              <v-text-field
+              <v-combobox
                   v-model="color"
+                  :items="uniqueColors"
                   label="Color"
                   required
-              ></v-text-field>
+              ></v-combobox>
             </v-col>
             <v-col cols="12" md="3">
               <v-text-field
@@ -308,6 +311,18 @@ const filteredFilaments = computed(() => {
 
   return filtered
 })
+
+const uniqueBrands = computed(() => 
+  [...new Set(store.filaments.map(f => f.brand))].sort()
+)
+
+const uniqueTypes = computed(() => 
+  [...new Set(store.filaments.map(f => f.type))].sort()
+)
+
+const uniqueColors = computed(() => 
+  [...new Set(store.filaments.map(f => f.color))].sort()
+)
 
 function addFilament() {
   const filamentId = store.addFilament(brand.value, type.value, color.value, hexColor.value)
