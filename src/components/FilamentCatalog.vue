@@ -144,6 +144,11 @@
             <template v-slot:item.price="{ item }">
               ${{ item.price.toFixed(2) }}
             </template>
+            <template v-slot:item.actions="{ item }">
+              <v-btn @click="confirmDeletePurchase(item)" icon size="small" variant="outlined" color="error">
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
+            </template>
           </v-data-table>
           
           <v-alert v-else type="info" variant="tonal" class="mt-2">
@@ -235,6 +240,24 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    
+    <!-- Delete Purchase Confirmation Dialog -->
+    <v-dialog v-model="showDeletePurchaseDialog" max-width="400px">
+      <v-card>
+        <v-card-title>Confirm Delete Purchase</v-card-title>
+        <v-card-text>
+          <p>Delete this purchase?</p>
+          <p><strong>Date:</strong> {{ deletePurchaseData.purchase ? new Date(deletePurchaseData.purchase.date).toLocaleDateString() : '' }}</p>
+          <p><strong>Rolls:</strong> {{ deletePurchaseData.purchase?.rolls }}</p>
+          <p><strong>Price:</strong> ${{ deletePurchaseData.purchase?.price.toFixed(2) }}</p>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn @click="showDeletePurchaseDialog = false">Cancel</v-btn>
+          <v-btn @click="deletePurchase" color="error">Delete</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -261,7 +284,8 @@ const detailsData = ref({
 const purchaseHeaders = [
   { title: 'Date', key: 'date' },
   { title: 'Rolls', key: 'rolls' },
-  { title: 'Price', key: 'price' }
+  { title: 'Price', key: 'price' },
+  { title: 'Actions', key: 'actions', sortable: false }
 ]
 
 const totalRolls = computed(() => 
@@ -284,6 +308,11 @@ const purchaseData = ref({
   date: new Date().toISOString().split('T')[0],
   rolls: 1,
   price: ''
+})
+
+const showDeletePurchaseDialog = ref(false)
+const deletePurchaseData = ref({
+  purchase: null
 })
 
 const headers = [
@@ -414,6 +443,22 @@ function savePurchase() {
     detailsData.value.purchases = [...updatedFilament.purchases]
   }
   showPurchaseDialog.value = false
+}
+
+function confirmDeletePurchase(purchase) {
+  deletePurchaseData.value = { purchase }
+  showDeletePurchaseDialog.value = true
+}
+
+function deletePurchase() {
+  store.deletePurchase(detailsData.value.id, deletePurchaseData.value.purchase.id)
+  
+  // Refresh the details dialog data
+  const updatedFilament = store.getFilamentById(detailsData.value.id)
+  if (updatedFilament) {
+    detailsData.value.purchases = [...updatedFilament.purchases]
+  }
+  showDeletePurchaseDialog.value = false
 }
 
 </script>

@@ -38,6 +38,14 @@ export const store = reactive({
     }
   },
   
+  deletePurchase(filamentId, purchaseId) {
+    const filament = this.getFilamentById(filamentId)
+    if (filament && filament.purchases) {
+      filament.purchases = filament.purchases.filter(p => p.id !== purchaseId)
+      saveToStorage()
+    }
+  },
+  
   editFilament(id, brand, type, color, hexColor) {
     const filament = this.getFilamentById(id)
     if (filament) {
