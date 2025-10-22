@@ -310,9 +310,15 @@ const filteredFilaments = computed(() => {
 })
 
 function addFilament() {
-  store.addFilament(brand.value, type.value, color.value, hexColor.value)
+  const filamentId = store.addFilament(brand.value, type.value, color.value, hexColor.value)
   brand.value = type.value = color.value = ''
   hexColor.value = '#000000'
+  
+  // Open details dialog for the newly added filament
+  const newFilament = store.getFilamentById(filamentId)
+  if (newFilament) {
+    openDetailsDialog(newFilament)
+  }
 }
 
 function openDetailsDialog(filament) {
